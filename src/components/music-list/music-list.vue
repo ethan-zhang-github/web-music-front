@@ -1,16 +1,25 @@
 <template>
   <div class="music-list">
-    <div class="back">
+    <div class="back" @click="back">
       <i class="icon-back"></i>
     </div>
     <h1 class="title" v-html="title"></h1>
     <div class="bg-image" ref="bgImage" :style="bgStyle">
-      <div class="filter"></div>
+      <div class="play-wrapper">
+        <div ref="playBtn" v-show="songs.length > 0" class="play">
+          <i class="icon-play"></i>
+          <span class="text">随机播放全部</span>
+        </div>
+      </div>
+      <div class="filter" ref="filter"></div>
     </div>
     <div class="bg-layer" ref="layer"></div>
     <scroll @scroll="scroll" :probe-type="probeType" :listen-scroll="listenScroll" :data="songs" class="list" ref="list">
       <div class="song-list-wrapper">
         <song-list :songs="songs"></song-list>
+      </div>
+      <div class="loading-container" v-show="!songs.length">
+        <loading></loading>
       </div>
     </scroll>
   </div>
@@ -19,6 +28,7 @@
 <script type="text/ecmascript-6">
 import Scroll from 'base/scroll/scroll'
 import SongList from 'base/song-list/song-list'
+import Loading from 'base/loading/loading'
 import {prefixStyle} from 'common/js/dom'
 
 const RESERVED_HEIGHT = 40
@@ -28,7 +38,8 @@ const backdrop = prefixStyle('backdrop-filter')
 export default {
   components: {
     Scroll,
-    SongList
+    SongList,
+    Loading
   },
   data () {
     return {
@@ -66,6 +77,9 @@ export default {
   methods: {
     scroll (pos) {
       this.scrollY = pos.y
+    },
+    back () {
+      this.$router.back()
     }
   },
   watch: {
