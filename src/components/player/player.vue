@@ -162,7 +162,9 @@ export default {
     ...mapMutations({
       'setFullScreen': 'SET_FULL_SCREEN'
     }),
-    ...mapActions([]),
+    ...mapActions([
+      'savePlayHistory'
+    ]),
     back () {
       this.setFullScreen(false)
     },
@@ -273,6 +275,7 @@ export default {
     },
     ready () {
       this.songReady = true
+      this.savePlayHistory(this.currentSong)
     },
     paused () {
       this.setPlayingState(false)
