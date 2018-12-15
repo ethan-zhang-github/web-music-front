@@ -1,7 +1,7 @@
 {
   "name": "vue-music",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "infinite-music-front",
   "author": "JUST1984 <yixiezi1994@gmail.com>",
   "private": true,
   "scripts": {
